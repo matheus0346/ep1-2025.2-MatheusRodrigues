@@ -10,37 +10,45 @@ public class Consulta {
     private LocalDateTime dataHora;
     private String local;
     private StatusConsulta status;
-    private double valor; // Valor final da consulta
+    private double valor;
     private String diagnostico;
     private List<String> prescricao;
-
 
     public Consulta(Paciente paciente, Medico medico, LocalDateTime dataHora, String local) {
         this.paciente = paciente;
         this.medico = medico;
         this.dataHora = dataHora;
         this.local = local;
-        this.status = StatusConsulta.AGENDADA; // Toda nova consulta começa como AGENDADA
-        this.valor = calcularValorConsulta(); // Calculo automatico
+        this.status = StatusConsulta.AGENDADA;
+        this.valor = calcularValorConsulta(); // O valor já será calculado com o novo desconto
     }
 
-
+    // --- LÓGICA DE NEGÓCIO ATUALIZADA ---
     private double calcularValorConsulta() {
         double custoBase = this.medico.getCustoDaConsulta();
-        double desconto = 0.0;
+        double valorAposPlano = custoBase;
 
-
+        // 1. Aplica o desconto do Plano de Saúde (se houver)
         if (this.paciente.getPlanoDeSaude() != null) {
-            desconto = this.paciente.getPlanoDeSaude().getDescontoConsulta();
+            double descontoPlano = this.paciente.getPlanoDeSaude().getDescontoConsulta();
+            valorAposPlano = custoBase * (1 - descontoPlano);
         }
         
-// desconto
-        return custoBase * (1 - desconto);
+        // 2. Aplica um desconto ADICIONAL de 20% se o paciente tiver 60 anos ou mais
+        if (this.paciente.getIdade() >= 60) {
+            double descontoIdoso = 0.20; // 20% de desconto
+            // O desconto de idoso é aplicado sobre o valor que sobrou após o desconto do plano
+            return valorAposPlano * (1 - descontoIdoso);
+        }
+        
+        // Se não for idoso, retorna apenas o valor com o desconto do plano
+        return valorAposPlano;
     }
     
-
+    // (O resto da classe, com todos os Getters e Setters, continua o mesmo)
+    // ...
     public Paciente getPaciente() {
-        return paciente;
+        return paciente; 
     }
     public void setPaciente(Paciente paciente) {
         this.paciente = paciente;
@@ -88,7 +96,6 @@ public class Consulta {
         this.prescricao = prescricao;
     }
 
-    
     @Override
     public String toString() {
         return "Consulta [" +
@@ -97,7 +104,7 @@ public class Consulta {
                 ", Data/Hora: " + dataHora +
                 ", Local: " + local +
                 ", Status: " + status +
-                ", Valor: R$" + String.format("%.2f", valor) +
+                ", Valor: R$" + String.format("%.2f", valor) + // Exibe o valor já com desconto
                 ']';
     }
 }
