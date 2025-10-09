@@ -41,8 +41,7 @@ Desenvolvimento de um sistema de gerenciamento hospitalar utilizando os conceito
 
 ## Vídeo de Demonstração
 
-- [Inserir o link para o vídeo no YouTube/Drive aqui]
-
+- [https://youtu.be/CS_27Trdia4](https://youtu.be/CS_27Trdia4)
 ---
 
 ## Prints da Execução
