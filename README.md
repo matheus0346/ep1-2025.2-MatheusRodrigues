@@ -20,16 +20,22 @@ Desenvolvimento de um sistema de gerenciamento hospitalar utilizando os conceito
 ## Instruções para Compilação e Execução
 
 1. **Compilação:**  
-   [Descrever aqui como compilar o projeto. Exemplo: `javac Main.java` ou o script usado]
+   javac -d out src/main/java/com/gestaohospitalar/model/*.java src/main/java/com/gestaohospitalar/repository/*.java src/main/java/com/gestaohospitalar/*.java
 
 2. **Execução:**  
-   [Descrever aqui como executar o projeto. Exemplo: `java Main` ou o script usado]
+   java -cp out src.main.java.com.gestaohospitalar.Main
 
 3. **Estrutura de Pastas:**  
-   [Descrever aqui as principais pastas do projeto]
+   src/main/java/com/gestaohospitalar/: Pasta base do projeto.
 
-3. **Versão do JAVA utilizada:**  
-   [Descrever aqui como versão do JAVA utilizada no projeto. Sugestão: `java 21`]
+   model/: Contém as classes de entidade (Paciente, Medico, Consulta, etc.).
+
+   repository/: Contém as classes responsáveis pela persistência de dados em arquivos .csv.
+
+   out/: Pasta onde os arquivos compilados (.class) são gerados.
+
+4. **Versão do JAVA utilizada:**  
+   Java 25 (LTS)
 
 ---
 
@@ -56,13 +62,21 @@ Desenvolvimento de um sistema de gerenciamento hospitalar utilizando os conceito
 
 ## Observações (Extras ou Dificuldades)
 
-- [Espaço para o aluno comentar qualquer funcionalidade extra que implementou, dificuldades enfrentadas, ou considerações importantes.]
+### Explicação da Modelagem (Estrutura de Classes)
+
+O sistema foi modelado utilizando os princípios da Orientação a Objetos para criar uma estrutura coesa e extensível.
+
+-   **`Pessoa` (Abstrata):** Superclasse que centraliza atributos comuns a `Paciente` e `Medico`, como nome, CPF e dados de contato. Ela também contém a lógica para calcular a idade automaticamente a partir da data de nascimento.
+-   **`Paciente` e `Medico`:** Herdam de `Pessoa` e adicionam atributos e comportamentos específicos (ex: `crm` para Médico, `numeroProntuario` e histórico para Paciente).
+-   **`Consulta` e `Internacao`:** Classes centrais que associam Pacientes, Médicos e a infraestrutura do hospital (`Quarto`), contendo as principais regras de negócio, como cálculo de custos com descontos e validação de conflitos.
+-   **Classes de Suporte e Enums:** Classes como `PlanoSaude`, `Especialidade` e `Quarto` modelam as entidades do sistema. O uso de `Enums` (como `Prioridade`, `StatusConsulta`, `TipoQuarto`) garante a integridade e consistência dos dados, evitando erros de digitação e tornando o código mais legível.
+-   **Repositórios (Padrão DAO):** Para cada entidade principal, uma classe `Repository` (`PacienteRepository`, `MedicoRepository`, etc.) foi criada para encapsular a lógica de persistência de dados em arquivos `.csv`, separando as responsabilidades de negócio e de acesso a dados.
 
 ---
 
 ## Contato
 
-- [Opcional: E-mail pessoal do aluno.]
+- Email - matheusrodriguespontes346@gmail.com
 
 ---
 
