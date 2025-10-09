@@ -52,10 +52,12 @@ Desenvolvimento de um sistema de gerenciamento hospitalar utilizando os conceito
 
 
 2. Cadastro de Médico:  
-   ![Inserir Print 2](caminho/do/print2.png)
+   <img width="308" height="220" alt="image" src="https://github.com/user-attachments/assets/5576de4f-ad03-4bc3-8deb-41012fd5b928" />
 
-3. Relatório de ?:  
-   ![Inserir Print 3](caminho/do/print3.png)
+
+3. Relatório de Médicos com Agenda e Desempenho:  
+   <img width="503" height="476" alt="image" src="https://github.com/user-attachments/assets/5b532ea1-c0f9-4358-992f-1c7f6f361672" />
+
 
 ---
 
